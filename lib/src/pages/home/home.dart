@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                                 style: Theme.of(context).textTheme.headline.copyWith(color: Colors.black),
                               ),
                               Text(
-                                  list.list[index]['subtittle'],
+                                  list.list[index]['deskripsi'].toString().substring(0,90) + '...',
                                   style: TextStyle(color: Colors.grey),
                                 ),
                               

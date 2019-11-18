@@ -1,4 +1,4 @@
-package com.example.germas
+package com.bufir.germas
 
 import android.os.Bundle
 

@@ -1,12 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player/youtube_player.dart';
-class DetailPage extends StatelessWidget {
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+// import 'package:youtube_player/youtube_player.dart';
+class DetailPage extends StatefulWidget {
+  DetailPage({Key key, @required this.judul, @required this.desc, @required this.video, @required this.gambar}) : super(key: key);
+
   final String judul;
   final String desc;
   final String video;
   final String gambar;
 
-  const DetailPage({Key key, @required this.judul, @required this.desc, @required this.video, @required this.gambar}) : super(key: key);
+  
+  @override
+  _DetailPageState createState() => _DetailPageState(judul: this.judul, desc: this.desc, video: this.video, gambar: this.gambar);
+}
+
+class _DetailPageState extends State<DetailPage> {
+
+  _DetailPageState({this.judul, this.desc, this.video, this.gambar});
+  final String judul;
+  final String desc;
+  final String video;
+  final String gambar;
+
+  // const DetailPage({Key key, @required this.judul, @required this.desc, @required this.video, @required this.gambar}) : super(key: key);
+  
+  YoutubePlayerController _controller;
+  String videoId;
+
+  
+
+  @override
+void initState(){
+  videoId = YoutubePlayer.convertUrlToId(video);
+    _controller = YoutubePlayerController(
+        initialVideoId: videoId,
+        flags: YoutubePlayerFlags(
+            mute: false,
+            autoPlay: true,
+            forceHideAnnotation: true,
+        ),
+    );
+    super.initState();
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +77,10 @@ class DetailPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.circular(20.0)),
-                      child: Text(
-                        "8.4/85 reviews",
-                        style: TextStyle(color: Colors.white, fontSize: 13.0),
-                      ),
+                      // child: Text(
+                      //   "8.4/85 reviews",
+                      //   style: TextStyle(color: Colors.white, fontSize: 13.0),
+                      // ),
                     ),
                     Spacer(),
                     IconButton(
@@ -62,25 +97,25 @@ class DetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      const SizedBox(height: 30.0),
-                      SizedBox(
-                        width: double.infinity,
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                          color: Colors.purple,
-                          textColor: Colors.white,
-                          child: Text("Back Home", style: TextStyle(
-                            fontWeight: FontWeight.normal
-                          ),),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 16.0,
-                            horizontal: 32.0,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                      const SizedBox(height: 30.0),
-                      Text("Description".toUpperCase(), style: TextStyle(
+                      // const SizedBox(height: 30.0),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   child: RaisedButton(
+                      //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      //     color: Colors.purple,
+                      //     textColor: Colors.white,
+                      //     child: Text("Back Home", style: TextStyle(
+                      //       fontWeight: FontWeight.normal
+                      //     ),),
+                      //     padding: const EdgeInsets.symmetric(
+                      //       vertical: 16.0,
+                      //       horizontal: 32.0,
+                      //     ),
+                      //     onPressed: () {},
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 30.0),
+                      Text("Deksripsi".toUpperCase(), style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14.0
                       ),),
@@ -90,18 +125,14 @@ class DetailPage extends StatelessWidget {
                             fontWeight: FontWeight.w300,
                             fontSize: 14.0
                           ),),
-                      const SizedBox(height: 10.0),
-                      Text(
-                          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione architecto autem quasi nisi iusto eius ex dolorum velit! Atque, veniam! Atque incidunt laudantium eveniet sint quod harum facere numquam molestias?", textAlign: TextAlign.justify, style: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14.0
-                          ),),
-                     const SizedBox(height: 10,),
-                     YoutubePlayer(
-                       context: context,
-                       source: "nPt8bK2gbaU",
-                       quality: YoutubeQuality.MEDIUM
-                     ) 
+                      const SizedBox(height: 10,),
+                      YoutubePlayer(
+                        controller: _controller,
+                        showVideoProgressIndicator: true,
+                        onReady: () {
+                          print('Player is ready.');
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -125,6 +156,5 @@ class DetailPage extends StatelessWidget {
         ],
       ),
     );
-  
   }
 }

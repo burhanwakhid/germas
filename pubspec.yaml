@@ -23,10 +23,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  youtube_player: ^3.5.0
+  # youtube_player: ^3.5.0
+  youtube_player_flutter: ^6.0.3+2
   shared_preferences: ^0.5.3+4
   font_awesome_flutter: ^8.5.0
   flutter_swiper: ^1.1.6
+  flutter_launcher_icons: "^0.7.3"
   cached_network_image: ^1.1.1
 
 dev_dependencies:
@@ -38,6 +40,11 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/launcher.png"
+
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -50,6 +57,9 @@ flutter:
    - assets/logo/logo_fagos.png
    - assets/logo/logo_germas.png
    - assets/logo/back.jpg
+   - assets/aktifitas-fisik.jpeg
+   - assets/buahsayur.jpeg
+   - assets/cekkesehatan.jpeg
    
 
   # An image asset can refer to one or more resolution-specific "variants", see
